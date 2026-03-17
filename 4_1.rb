@@ -7,10 +7,11 @@ def ask_measurements
     weight = gets.chomp.to_f
     [name, height, weight]
 end
+
 def calculate_bmi(height, weight)
-    bmi = (weight/height**2).round(2)
-    bmi
+   (weight/height**2).round(2)
 end
+
 def bmi_category(name, bmi)
   case bmi
   when 0...18.5 then "Иди кушац, #{name}, у тебя категория \"Недостаточный вес\""
@@ -19,10 +20,11 @@ def bmi_category(name, bmi)
   else "Бегом на дорожку, #{name}, у тебя категория \"Ожирение\""
   end
 end
+
 def show_report(name, bmi)
-    puts "Твой BMI = #{bmi}"
-    puts bmi_category(name, bmi)
+    puts "Твой BMI = #{bmi}", bmi_category(name, bmi)
 end
+
 name, height, weight = ask_measurements
 bmi = calculate_bmi(height, weight)
 show_report(name, bmi)
