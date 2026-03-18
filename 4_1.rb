@@ -25,6 +25,10 @@ def show_report(name, bmi)
     puts "Твой BMI = #{bmi}", bmi_category(name, bmi)
 end
 
+<<<<<<< Updated upstream
 name, height, weight = ask_measurements
+=======
+name, height, weight = ask_measurementsx
+>>>>>>> Stashed changes
 bmi = calculate_bmi(height, weight)
 show_report(name, bmi)
