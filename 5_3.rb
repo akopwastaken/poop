@@ -44,4 +44,3 @@ def summary(cart)
 end
 
 summary(shopping_cart)
-    
