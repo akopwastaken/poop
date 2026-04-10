@@ -39,10 +39,10 @@ class BankAccount
     end
 
     def transfer(amount, other_account)
-            if amount > @balance || amount <= 0
-                puts "ты дурак?"
-                return
-            end
+        if amount > @balance || amount <= 0
+            puts "ты дурак?"
+            return
+        end
         @balance -= amount
         @transactions << {type: :withdraw, amount: amount, balance: @balance, to: other_account.owner}
         other_account.deposit(amount)
@@ -64,7 +64,7 @@ class BankAccount
     end
 
     def self.minimum_balance
-        puts "0"
+        0
     end
 
     def self.total_deposits_count
