@@ -7,88 +7,108 @@
 #14.	Модуль Displayable: подключить ко всем фигурам. Содержит метод display — выводит название класса, цвет, площадь и периметр красивой таблицей
 #15.	include Comparable во все фигуры — сравниваем по площади
 
+module Displayable
+    def display
+        puts "Фигура: #{self.class} Цвет: #{@color} Площадь: #{@area} Периметр: #{@perimeter}"
+    end 
+end 
+
 class Shape
+   
     include Comparable
     
+    include Displayable
+
     attr_reader :color
 
     def initialize(color = "white")
         @color = color
     end
 
-    def area(area = 0)
-        @area = area
-    end
-
-    def perimeter(perimeter = 0)
-        @perimeter = perimeter
-        perimeter += 0 #???
-    end
-
-    def to_s
-        "#{@name} 
-        Цвет: #{@color}
-        Площадь: #{@area}
-        Периметр: #{@perimeter}"
-    end
-end
-
-class Circle < Shape
-    def initialize(color, r)
-         @radius = r
-    end
-
     def area
-        area = 3.14*@radius**2
+        0
     end
 
     def perimeter
-        perimeter = 2*3.14*@radius
+       0
+    end
+
+    def to_s
+        "Фигура: #{self.class} Цвет: #{@color} Площадь: #{@area} Периметр: #{@perimeter}"
+    end
+
+    def <=>(other)
+        area <=> other.area
+    end
+
+end
+
+class Circle < Shape
+    
+    attr_reader :area, :perimeter
+
+    def initialize(r, color = "white")
+         @radius = r
+         super(color)
+         @area = 3.14 * @radius ** 2
+         @perimeter = 2 * 3.14 * @radius
     end
 end
 
 class Rectangle < Shape
-    def initialize(color, w, h)
+
+    attr_reader :area, :perimeter
+
+    def initialize(w, h, color = "white")
+        super(color)
         @width = w
         @height = h
+        @area = @width*@height
+        @perimeter = 2*(@width+@height)
     end
 
-    def area
-        area = @width*@height
-    end
-
-    def perimeter
-        perimeter = 2*(@width+@height)
-    end
 end
 
 class Square < Rectangle
-    def initialize(color, side)
-        super(side, side)
+    
+    def initialize(side, color = "white")
+        super(side, side, color)
     end
 end
 
+class Triangle < Shape
+    
+    attr_reader :area, :perimeter
 
-krug = Circle.new("reed", 4)
-krug.area
-
-premoug = Rectangle.new("yellow", 4, 5)
-
-
-
-
-
-
-
+    def validate(a, b, c)
+        if a + b > c && a + c > b && b + c > a
+            @a = a  
+            @b = b  
+            @c = c
+        else 
+            puts "Это не стороны треугольника, попробуй еще раз"
+            @a = 0  
+            @b = 0  
+            @c = 0  
+        end
+    end
+    
+    def initialize(a, b, c, color = "white")
+        super(color)
+        validate(a, b, c)
+        @perimeter = @a + @b + @c
+        @h_p = @perimeter / 2.0
+        @area = Math.sqrt(@h_p * (@h_p - @a) * (@h_p - @b) * (@h_p - @c))
+    end
+end
 
 
 # Пример использования
 shapes = [
-  Circle.new(5, color: "red"),
+  Circle.new(5, "red"),
   Rectangle.new(4, 6),
   Square.new(5),
-  Triangle.new(3, 4, 5),
-]
+  Triangle.new(3, 4, 5)]
 
 shapes.each(&:display)
 
